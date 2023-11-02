@@ -67,6 +67,7 @@ a {
   margin-bottom: 30px;
   display: inline-block; /* Fix the misalignment of items */
   vertical-align: top; /* Keep the item on the very top */
+  border: 2px solid #000;
 }
 
 /* Masonry image effects */

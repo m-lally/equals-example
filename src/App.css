@@ -1,68 +1,38 @@
 .App {
   text-align: center;
-  margin: 0 auto;
 }
 
-* {
-  box-sizing: border-box;
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
-body {
-  font-family: 'Ubuntu', 'Droid Sans', 'Roboto', sans-serif;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-
-  a,
-  a:visited {
-    color: #ccc;
-    text-decoration: none;
-  }
-
-  p {
-    margin: 0;
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
   }
 }
 
-.flexbox {
-  display: -webkit-flex;
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
   display: flex;
-  -webkit-flex-direction: column;
   flex-direction: column;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-  height: 100vw;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
 
-  &:hover {
-    img {
-      opacity: 0.28;
-    }
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
   }
-
-  .item {
-    position: relative;
-    width: 580px;
-
-    img {
-      width: 100%;
-      display: block;
-      transition: all .8s;
-    }
-
-    .title {
-      position: absolute;
-      top: 48%;
-      left: 0;
-      width: 100%;
-      padding: 0 3%;
-      font-size: 30px;
-      text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
-    }
-
-    &:hover {
-      img {
-        opacity: 1;
-      }
-    }
+  to {
+    transform: rotate(360deg);
   }
 }
