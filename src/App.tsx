@@ -1,89 +1,66 @@
-import React from "react";
-import Container from "./components/container/container";
-import "./App.css";
-import "./components/labs.css";
-import "./components/masonry.css";
+import Cards from './Cards'
+import {useEffect, useState} from 'react'
 
-function App() {
-  return (
-    <>
-      <Container>
-        <h3>Contacts</h3>
-        <div className="container">
-          <div className="wrapper">
-            <div className="wrapper">
-
-              </div>
-              <div className="masonry">
-                <div className="brick">
-                  <img
-                    src="./files/images/cherry-plant.jpg"
-                    alt="Cherry plant"
-                    title="Cherry plant"
-                  ></img>
-                </div>
-                <div className="brick">
-                  <img
-                    src="./files/images/oranges-pomegranates.jpg"
-                    alt="Oranges and Pomegranates"
-                    title="Oranges and Pomegranates"
-                  ></img>
-                </div>
-                <div className="brick">
-                  <img
-                    src="files/images/strawberry.jpg"
-                    alt="Strawberry"
-                    title="Strawberry"
-                  ></img>
-                </div>
-                <div className="brick">
-                  <img
-                    src="files/images/blueberries.jpg"
-                    alt="Blueberries"
-                    title="Blueberries"
-                  ></img>
-                </div>
-                <div className="brick">
-                  <img
-                    src="files/images/pears.jpg"
-                    alt="Pears"
-                    title="Pears"
-                  ></img>
-                </div>
-                <div className="brick">
-                  <img
-                    src="files/images/easter-eggs.jpg"
-                    alt="Easter-eggs"
-                    title="Easter-eggs"
-                  ></img>
-                </div>
-                <div className="brick">
-                  <img
-                    src="files/images/lemons.jpg"
-                    alt="Lemons"
-                    title="Lemons"
-                  ></img>
-                </div>
-                <div className="brick">
-                  <img
-                    src="files/images/cherries.jpg"
-                    alt="Cherries"
-                    title="Cherries"
-                  ></img>
-                </div>
-                <div className="brick">
-                  <img
-                    src="files/images/grapes.jpg"
-                    alt="Grapes"
-                    title="Grapes"
-                  ></img>
-                </div>
-              </div>
-            </div>
-          </div>
-      </Container>
-    </>
-  );
+interface ContactList {
+  name: string;
+  email: string;
+  // Add other contact properties here
 }
 
-export default App;
+interface FilterList {
+  name: string;
+  email: string;
+  // Add other contact properties here
+}
+
+const baseUrl = 'https://61c32f169cfb8f0017a3e9f4.mockapi.io'
+const getUrl, postUrl = ` ${baseUrl}/api/v1/contacts`
+const putUrl, deleteUrl = ` ${baseUrl}/api/v1/contacts/:id`
+
+const App: React.FC = () => {
+
+  const [contactList, setContactList] = useState<ContactList[]>([]);
+  const [filterQuery, setFilterQuery] = useState<FilterList[]>([]);
+
+  useEffect(() => {
+    // Define an async function to fetch contact data
+    const fetchData = async () => {
+      try {
+        const response = await fetch(getUrl);
+        if (response.ok) {
+          const data = await response.json();
+          setContactList(data);
+        } else {
+          console.error('Failed to fetch data');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div className={"bg-gray-100"}>
+      <section>
+        <form>
+          <input
+            type={"text"}
+            placeholder={"type here to filter..."}
+            onChange={event => setFilterQuery(event.target.value)}
+            className={"ml-20 mt-6 rounded-md p-2"}
+          />
+        </form>
+      </section>
+      <section className={"grid sm:grid-cols-2 md:grid-cols-4 gap-6 p-20"}>
+        {contactList?.length < 1 && (
+          <h1>No data matches your search</h1>
+        )}
+        <Cards contactList={contactList}/>
+      </section>
+    </div>
+  )
+}
+
+export default App
